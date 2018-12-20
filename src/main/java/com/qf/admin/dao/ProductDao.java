@@ -22,4 +22,8 @@ public interface ProductDao {
     int upDateProduct(Product product);
 
     int deleteProduct(int pid);
+
+    int addProduct(Product product);
+
+    List<Product> listProduct();
 }

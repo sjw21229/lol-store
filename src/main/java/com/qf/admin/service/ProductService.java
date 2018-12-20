@@ -3,6 +3,8 @@ package com.qf.admin.service;
 import com.alibaba.fastjson.JSONObject;
 import com.qf.admin.pojo.po.Product;
 
+import java.util.List;
+
 
 /**
  * @param
@@ -19,4 +21,8 @@ public interface ProductService {
     int upDateProduct(Product product);
 
     int deleteProductByPid(int pid);
+
+    int addProduct(Product product);
+
+    List<Product> listProducts();
 }

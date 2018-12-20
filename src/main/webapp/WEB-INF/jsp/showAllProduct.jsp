@@ -13,7 +13,11 @@
     <link rel="stylesheet"
           href="https://cdn.bootcss.com/bootstrap	-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 </head>
-<body style="height:800px;">
+<body style="height:780px;">
+<div>
+    <h1 style="text-align: center">商品后台管理系统</h1>
+    <a href="toAddProduct" style="float: left"><button style="font-size: 20px">添加商品</button></a>
+</div>
 <table id="table" class="table"></table>
 <div class="modal fade" id="editModal">
     <div class="modal-dialog">

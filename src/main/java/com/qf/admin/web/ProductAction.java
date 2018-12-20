@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @param
  * @Author: SJW
@@ -22,7 +24,6 @@ public class ProductAction {
 
     @GetMapping("/{page}")
     public String page(@PathVariable String page){
-        // /WEB-INF/jsp/hello.jsp
         return page;
     }
 
@@ -57,6 +58,26 @@ public class ProductAction {
     @RequestMapping(value = "/deleteProduct/{pid}",method = RequestMethod.GET)
     public int deleteProduct(@PathVariable("pid") int pid){
         return productService.deleteProductByPid(pid);
-
     }
+
+    @RequestMapping(value = "toAddProduct" ,method = RequestMethod.GET)
+    public String toAddProduct(){
+        return "addProduct";
+    }
+
+
+    @RequestMapping(value = "addProduct",method = RequestMethod.POST)
+    public String addProduct(Product product){
+        System.out.println(product);
+        productService.addProduct(product);
+        return "redirect:showAllProduct";
+    }
+
+    @RequestMapping(value = "listProduct" ,method = RequestMethod.GET)
+    public String showProduct(Model model){
+        List<Product> productList = productService.listProducts();
+        model.addAttribute("productList",productList);
+        return "product";
+    }
+
 }

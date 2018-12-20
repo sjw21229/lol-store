@@ -35,11 +35,32 @@ public class ProductServiceImpl implements ProductService {
             json.put("total",total);
             json.put("rows",rows);
         }catch (Exception e){
-            logger.info(e.getMessage());
+            logger.info(e.getMessage(),e);
             e.printStackTrace();
         }
 
         return json;
+    }
+
+    public List<Product> listProducts() {
+        List<Product> listProducts = null;
+        try {
+            listProducts = productDao.listProduct();
+        }catch (Exception e){
+            logger.info(e.getMessage() ,e);
+        }
+        return listProducts;
+    }
+
+    public int addProduct(Product product) {
+        int i = 0;
+
+        try {
+            i = productDao.addProduct(product);
+        }catch (Exception e){
+            logger.info(e.getMessage(),e);
+        }
+        return i;
     }
 
     public int upDateProduct(Product product) {
@@ -47,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             i = productDao.upDateProduct(product);
         }catch (Exception e){
-            logger.info(e.getMessage());
+            logger.info(e.getMessage(),e);
         }
         return i;
     }
@@ -57,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             product =productDao.getProductByPid(pid);
         }catch (Exception e){
-            logger.info(e.getMessage());
+            logger.info(e.getMessage(),e);
         }
         return product;
     }
@@ -67,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             i = productDao.deleteProduct(pid);
         }catch (Exception e){
-            logger.info(e.getMessage());
+            logger.info(e.getMessage(),e);
         }
         return i;
     }

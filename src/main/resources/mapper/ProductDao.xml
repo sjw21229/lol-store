@@ -39,4 +39,17 @@
     <delete id="deleteProduct" parameterType="com.qf.admin.pojo.po.Product">
         delete from product where pid = #{id}
     </delete>
+
+    <insert id="addProduct" useGeneratedKeys="true" keyProperty="pid" parameterType="com.qf.admin.pojo.po.Product">
+
+        insert into product (pname,price,number,pimage,cid)
+        value (#{pname},#{price},#{number},#{pimage},#{cid})
+
+    </insert>
+
+    <select id="listProduct" resultType="com.qf.admin.pojo.po.Product">
+
+        select * from product
+
+    </select>
 </mapper>
