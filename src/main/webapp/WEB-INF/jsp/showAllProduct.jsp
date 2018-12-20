@@ -3,7 +3,7 @@
 <head>
     <title>主页</title>
     <!-- Main CSS-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,8 +13,89 @@
     <link rel="stylesheet"
           href="https://cdn.bootcss.com/bootstrap	-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 </head>
-<body>
-<table id="table" class="table-striped " style="text-align: center"></table>
+<body style="height:800px;">
+<table id="table" class="table"></table>
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <%--模态框头部--%>
+            <div class="modal-header">
+                <h4 class="modal-title">修改商品</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <%--模态框主体--%>
+            <div class="modal-body">
+                <form id="editForm" action="upDateProduct" method="post">
+                    <input type="hidden" name="pid"/>
+                    <div class="form-group">
+                        <label class="control-label">商品名称</label>
+                        <input name="pname" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">商品价格</label>
+                        <input class="form-control" type="text" name="price">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">商品库存</label>
+                        <input class="form-control" type="text" name="number">
+                    </div>
+                    <input type="hidden" name="pimage"/>
+                    <div class="form-group">
+                        <label class="control-label">商品图片</label>
+                        <img name="pimage" src="${pageContext.request.contextPath }/img/"+value width="200px">
+                    </div>
+                    <fieldset class="form-group">
+                        <label class="control-label">分类</label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="cid"
+                                       value="1">雕塑手办
+                            </label>
+                            <label class="form-check-label" style="margin-left: 50px">
+                                <input class="form-check-input" type="radio" name="cid"
+                                       value="2">毛绒玩具
+                            </label>
+                            <label class="form-check-label" style="margin-left: 50px">
+                                <input class="form-check-input" type="radio" name="cid"
+                                       value="3">男女服饰
+                            </label>
+                            <label class="form-check-label" style="margin-left: 50px">
+                                <input class="form-check-input" type="radio" name="cid"
+                                       value="4">珠宝首饰
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button id="btnEditCommit" type="submit" class="btn btn-primary">确认</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </form>
+            </div>
+            <%--模态框底部--%>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editModal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <%--模态框头部--%>
+            <div class="modal-header">
+                <h4 class="modal-title">删除商品</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <%--模态框主体--%>
+            <div class="modal-body">
+                    <div class="form-group">
+                        <h3 style="text-align: center">删除成功</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="window.location.href='showAllProduct'" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+            </div>
+            <%--模态框底部--%>
+        </div>
+    </div>
+</div>
 <%--jquery库--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <%--bootstrap库--%>
@@ -29,21 +110,55 @@
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-    $(function AddFunction() {
-        return[
-            '<button id="TableEditor" type="button" class="byn btn-default">修改</button>;',
-            '<button id="TableDelete" type="button" class="byn btn-default">删除</button>;'
-        ].join("")
-    })
-    window.opertEvents = {
-      "click #TableEditor":function () {
-          
-      },
-      "click #TableDelete":function () {
-          
-      }
-    }
+
     $(function(){
+        function AddButton() {
+            return [
+                '<button id="TableEditor" class="btn btn-primary">修改</button> &nbsp;&nbsp;&nbsp;&nbsp;',
+                '<button id="TableDelete" class="btn btn-danger">删除</button>'
+            ].join("");
+        }
+    window.opertEvents = {
+      "click #TableEditor":function (e,v,r,i) {
+          $.get(
+              'toUpDateProduct/'+ r.pid,
+              function (data) {
+                  $('#editForm [name=pid]').val(data.pid);
+                  $('#editForm [name=pname]').val(data.pname);
+                  $('#editForm [name=price]').val(data.price);
+                  $('#editForm [name=number]').val(data.number);
+                  $('#editForm [name=pimage]').val(data.pimage);
+                  $('#editForm [name=pimage]').attr("src","img/"+data.pimage);
+                  $('#editForm [type=radio][value='+data.cid+']').attr('checked',true);
+              },
+              'json'
+          );
+          var d = $('#editModal').modal({
+              backdrop:'static',
+              keyboard: false
+          });
+          d.modal('show');
+          // console.log(r)
+          // window.location.href="toUpDateProduct/"+r.pid;
+      },
+      "click #TableDelete":function (e,v,r,i) {
+          $.get(
+              'deleteProduct/'+r.pid,
+              function (data) {
+                if (data>0){
+
+                    var m = $('#editModal1').modal({
+                        backdrop:'static',
+                        keyboard: false
+                    });
+                    m.modal('show');
+                }
+              },
+              'json'
+          );
+
+      }
+    };
         //初始化表格
         $('#table').bootstrapTable({
             //表格属性
@@ -66,7 +181,10 @@
             },{
                 field:'pimage',
                 title:'商品图片',
-                align:'center'
+                align:'center',
+                formatter: function(value,rows,index){
+                    return '<img src="${pageContext.request.contextPath }/img/'+value+'" width="110px" class="img-rounded" >';
+                }
             },{
                 field:'number',
                 title:'商品库存',
@@ -87,7 +205,7 @@
             search: true,
             searchOnEnterKey: true,
             pageNumber: 1,
-            pageSize: 5,
+            pageSize: 6,
             pagination: true,
             sidePagination: 'server'
         });

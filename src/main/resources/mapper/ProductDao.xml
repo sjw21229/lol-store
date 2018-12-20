@@ -25,4 +25,18 @@
         </where>
 
     </select>
+
+    <select id="getProductByPid" parameterType="com.qf.admin.pojo.po.Product" resultType="com.qf.admin.pojo.po.Product">
+        select pid,pname,price,number,pimage,cid from product where pid = #{id}
+    </select>
+
+    <update id="upDateProduct" parameterType="com.qf.admin.pojo.po.Product">
+        update product
+        set pname = #{pname},price = #{price}, number= #{number },pimage = #{pimage},cid = #{cid}
+        where pid = #{pid}
+    </update>
+
+    <delete id="deleteProduct" parameterType="com.qf.admin.pojo.po.Product">
+        delete from product where pid = #{id}
+    </delete>
 </mapper>

@@ -1,6 +1,7 @@
 package com.qf.admin.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.qf.admin.pojo.po.Product;
 
 
 /**
@@ -12,4 +13,10 @@ import com.alibaba.fastjson.JSONObject;
 public interface ProductService {
 
    JSONObject listProductJson(JSONObject jsonObject);
+
+    Product getProductByPid(int pid);
+
+    int upDateProduct(Product product);
+
+    int deleteProductByPid(int pid);
 }

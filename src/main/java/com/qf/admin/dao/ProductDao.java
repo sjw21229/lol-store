@@ -16,4 +16,10 @@ public interface ProductDao {
     List<Product> listProducts(JSONObject jsonObject);
 
     long countProducts(JSONObject jsonObject);
+
+    Product getProductByPid(int pid);
+
+    int upDateProduct(Product product);
+
+    int deleteProduct(int pid);
 }

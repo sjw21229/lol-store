@@ -31,7 +31,6 @@ public class ProductServiceImpl implements ProductService {
         JSONObject json = new JSONObject();
         try {
             List<Product> rows = productDao.listProducts(jsonObject);
-            System.out.println(rows);
             long total = productDao.countProducts(jsonObject);
             json.put("total",total);
             json.put("rows",rows);
@@ -41,5 +40,35 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return json;
+    }
+
+    public int upDateProduct(Product product) {
+        int i = 0;
+        try {
+            i = productDao.upDateProduct(product);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+        }
+        return i;
+    }
+
+    public Product getProductByPid(int pid) {
+        Product product = null;
+        try {
+            product =productDao.getProductByPid(pid);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+        }
+        return product;
+    }
+
+    public int deleteProductByPid(int pid) {
+        int i = 0;
+        try {
+            i = productDao.deleteProduct(pid);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+        }
+        return i;
     }
 }
