@@ -17,16 +17,16 @@
     <ul class="tj_submain" style="margin-top: 20px">
 
         <li onMouseOut="do_list_row_unshow(this);" onMouseOver="do_list_row_show(this);">
-            <a href="#" target="right_content"><p style="color: #5bc0de;font-size: large">商品管理</p></a>
+            <a href="showAllProduct" target="right_content"><p style="color: #5bc0de;font-size: large">商品管理</p></a>
         </li>
-        <li onMouseOut="do_list_row_unshow(this);" onMouseOver="do_list_row_show(this);">
+       <%-- <li onMouseOut="do_list_row_unshow(this);" onMouseOver="do_list_row_show(this);">
             <a href="#" target="right_content"><p style="color: #5bc0de;font-size: large">购物车管理</p></a>
 
         </li>
         <li onMouseOut="do_list_row_unshow(this);" onMouseOver="do_list_row_show(this);">
             <a href="#" target="right_content"><p style="color: #5bc0de;font-size: large">订单管理</p></a>
 
-        </li>
+        </li>--%>
         <li onMouseOut="do_list_row_unshow(this);" onMouseOver="do_list_row_show(this);">
             <a href="index" target="right_content"><p style="color: #5bc0de;font-size: large">资讯管理</p></a>
         </li>
