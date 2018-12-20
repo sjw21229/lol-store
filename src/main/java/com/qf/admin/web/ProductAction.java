@@ -20,10 +20,10 @@ public class ProductAction {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/{page}")
-    public String page(@PathVariable String page){
+    @GetMapping("showAllProduct")
+    public String page(){
         // /WEB-INF/jsp/hello.jsp
-        return page;
+        return "showAllProduct";
     }
 
     @ResponseBody
