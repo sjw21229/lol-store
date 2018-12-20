@@ -4,4 +4,52 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.admin.dao.ProductDao">
 
+    <select id="listProducts" resultType="com.qf.admin.pojo.po.Product">
+
+        select * from product
+        <where>
+            <if test="search != null and search != ''">
+                pname like '%${search}%'
+            </if>
+        </where>
+        limit #{offset},#{limit}
+    </select>
+
+    <select id="countProducts" resultType="_long">
+
+        select count(1) from product
+        <where>
+            <if test="search != null and search != ''">
+                pname like '%${search}%'
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getProductByPid" parameterType="com.qf.admin.pojo.po.Product" resultType="com.qf.admin.pojo.po.Product">
+        select pid,pname,price,number,pimage,cid from product where pid = #{id}
+    </select>
+
+    <update id="upDateProduct" parameterType="com.qf.admin.pojo.po.Product">
+        update product
+        set pname = #{pname},price = #{price}, number= #{number },pimage = #{pimage},cid = #{cid}
+        where pid = #{pid}
+    </update>
+
+    <delete id="deleteProduct" parameterType="com.qf.admin.pojo.po.Product">
+        delete from product where pid = #{id}
+    </delete>
+
+    <insert id="addProduct" useGeneratedKeys="true" keyProperty="pid" parameterType="com.qf.admin.pojo.po.Product">
+
+        insert into product (pname,price,number,pimage,cid)
+        value (#{pname},#{price},#{number},#{pimage},#{cid})
+
+    </insert>
+
+    <select id="listProduct" resultType="com.qf.admin.pojo.po.Product">
+
+        select * from product
+
+    </select>
 </mapper>
