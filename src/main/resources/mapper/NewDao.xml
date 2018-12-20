@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.admin.dao.NewDao">
+    <select id="getNewProduct" resultType="com.qf.admin.pojo.po.News">
+        select * from news
+        <where>
+            <if test="search !=null and search !='' ">
+                pname like '%${search}%'
+            </if>
+        </where>
+        limit #{offset},#{limit}
+    </select>
+    <select id="countNewProduct" resultType="_long">
+        select count(1) from news
+        <where>
+            <if test="search !=null and search !='' ">
+                pname like '%${search}%'
+            </if>
+        </where>
+    </select>
+    <select id="getNewsById" parameterType="_int" resultType="com.qf.admin.pojo.po.News">
+        select * from news where wid=#{id}
+    </select>
+    <update id="editNews" parameterType="com.qf.admin.pojo.po.News">
+        update news set price=#{price},updataStamp=#{updataStamp},category=#{category},pimage=#{pimage},pdesc=#{pdesc},pname=#{pname} where wid=#{wid}
+    </update>
+    <delete id="deleteById" parameterType="_int">
+        delete from news where wid=#{id}
+    </delete>
+    <insert id="saveNews" parameterType="com.qf.admin.pojo.po.News" useGeneratedKeys="true" keyProperty="wid">
+        insert into news (price,updataStamp,category,pimage,pname,pdesc) values (#{price},#{updataStamp},#{category},#{pimage},#{pname},#{pdesc})
+    </insert>
+    <select id="getAllNews" resultType="com.qf.admin.pojo.po.News">
+        select * from news
+    </select>
+    <select id="getAllDrop" resultType="com.qf.admin.pojo.po.News">
+        select * from news where category="drop"
+    </select>
+    <select id="getAllRoost" resultType="com.qf.admin.pojo.po.News">
+        select * from news where category="roost"
+    </select>
+</mapper>
